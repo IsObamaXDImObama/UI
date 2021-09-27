@@ -1,3 +1,12 @@
+local DefaultSettings = {
+	UIColorSettings = {
+		["ColorGradient1"] = {1, 0.592157, 0.12549},
+		["ColorGradient2"] = {0.0313725, 0.54902, 1},
+		["GradientTwoEnabled"] = true,
+		["FasterLoading"] = false,
+	},
+}
+
 local options = _G.options or 
 {
     topcolor = Color3.fromRGB(35, 35, 35),

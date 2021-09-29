@@ -46,7 +46,9 @@ Design1.Name = HttpService:GenerateGUID(false)
 Design1.Parent = game:GetService("CoreGui")
 library.mainUI = Design1
 
-
+function DestroyLibrary()
+	Design1:Destroy()
+end
 
 local function Resize (part,new,_delay)
 	_delay = _delay or 0.5

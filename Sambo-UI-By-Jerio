@@ -1,0 +1,520 @@
+
+
+local Library = {}
+
+function Library:CreateWindow(windowtitle)
+	local JerioUI = Instance.new("ScreenGui")
+	local Window = Instance.new("Frame")
+	local OutLineTab = Instance.new("Frame")
+	local OutlineTop = Instance.new("Frame")
+	local TopFrame = Instance.new("Frame")
+	local TopTitle = Instance.new("TextLabel")
+	local TabFrame = Instance.new("Frame")
+	local UIGridLayout = Instance.new("UIGridLayout")
+	local Category = Instance.new("Frame")
+	
+	JerioUI.Name = "JerioUI"
+	JerioUI.Parent = game.CoreGui
+	JerioUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	
+	
+	Window.Name = "Window"
+	Window.Parent = JerioUI
+	Window.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	Window.BorderSizePixel = 0
+	Window.Position = UDim2.new(0.278876007, 0, 0.167855486, 0)
+	Window.Size = UDim2.new(0, 700, 0, 450)
+	
+
+	OutLineTab.Name = "OutLineTab"
+	OutLineTab.Parent = Window
+	OutLineTab.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	OutLineTab.BorderSizePixel = 0
+	OutLineTab.Position = UDim2.new(0.171428576, 0, 0.0444444455, 0)
+	OutLineTab.Size = UDim2.new(0, 1, 0, 430)
+	OutlineTop.Name = "OutlineTop"
+	OutlineTop.Parent = Window
+	OutlineTop.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	OutlineTop.BorderSizePixel = 0
+	OutlineTop.Position = UDim2.new(0, 0, 0.0422222205, 0)
+	OutlineTop.Size = UDim2.new(0, 700, 0, 1)
+	
+
+	TopFrame.Name = "TopFrame"
+	TopFrame.Parent = Window
+	TopFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TopFrame.BackgroundTransparency = 1.000
+	TopFrame.BorderSizePixel = 0
+	TopFrame.Size = UDim2.new(0, 700, 0, 20)
+	
+	TopTitle.Name = "TopTitle"
+	TopTitle.Parent = TopFrame
+	TopTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TopTitle.BackgroundTransparency = 1.000
+	TopTitle.BorderSizePixel = 0
+	TopTitle.Size = UDim2.new(0, 700, 0, 20)
+	TopTitle.Font = Enum.Font.GothamSemibold
+	TopTitle.Text = windowtitle or "Jerio UI"
+	TopTitle.TextColor3 = Color3.fromRGB(220, 220, 220)
+	TopTitle.TextSize = 12.000
+	
+
+	TabFrame.Name = "TabFrame"
+	TabFrame.Parent = Window
+	TabFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabFrame.BackgroundTransparency = 1.000
+	TabFrame.BorderSizePixel = 0
+	TabFrame.Position = UDim2.new(0, 0, 0.0444444455, 0)
+	TabFrame.Size = UDim2.new(0, 120, 0, 430)
+	
+	
+	UIGridLayout.Parent = TabFrame
+	UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIGridLayout.CellSize = UDim2.new(0, 120, 0, 25)
+	
+	
+	Category.Name = "Category"
+	Category.Parent = Window
+	Category.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Category.BackgroundTransparency = 1.000
+	Category.BorderSizePixel = 0
+	Category.Position = UDim2.new(0.171428576, 0, 0.0444444455, 0)
+	Category.Size = UDim2.new(0, 580, 0, 430)
+	
+	local function TCSF_fake_script() -- Window.DraggableFunction 
+		local script = Instance.new('LocalScript', Window)
+
+		local UserInputService = game:GetService("UserInputService")
+
+		local gui = script.Parent
+
+		local dragging
+		local dragInput
+		local dragStart
+		local startPos
+
+		local function update(input)
+			local delta = input.Position - dragStart
+			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		end
+
+		gui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		gui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				update(input)
+			end
+		end)
+	end
+	coroutine.wrap(TCSF_fake_script)()
+	
+	local Window = {}
+	
+	
+	
+	
+	
+	function Window:CreateTab(tabnamepagename)
+		
+		local TabButtonFrame = Instance.new("Frame")
+		local TabButton = Instance.new("TextButton")
+		local Page = Instance.new("Frame")
+		local PageUiGridLayout = Instance.new("UIGridLayout")
+		
+		TabButtonFrame.Name = "TabButtonFrame"
+		TabButtonFrame.Parent = TabFrame
+		TabButtonFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+		TabButtonFrame.BorderSizePixel = 0
+		TabButtonFrame.Size = UDim2.new(0, 120, 0, 25)
+
+		TabButton.Name = "TabButton"
+		TabButton.Parent = TabButtonFrame
+		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TabButton.BackgroundTransparency = 1.000
+		TabButton.BorderSizePixel = 0
+		TabButton.Size = UDim2.new(0, 120, 0, 25)
+		TabButton.Font = Enum.Font.GothamSemibold
+		TabButton.Text = tabnamepagename or "Page"
+		TabButton.TextColor3 = Color3.fromRGB(220, 220, 220)
+		TabButton.TextSize = 12.000
+		
+		Page.Name = tabnamepagename or "Page"
+		Page.Parent = Category
+		Page.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Page.BackgroundTransparency = 1.000
+		Page.BorderSizePixel = 0
+		Page.Position = UDim2.new(0.00172711571, 0, 0, 0)
+		Page.Size = UDim2.new(0, 579, 0, 430)
+		Page.Visible = false
+		
+		PageUiGridLayout.Name = "PageUiGridLayout"
+		PageUiGridLayout.Parent = Page
+		PageUiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		PageUiGridLayout.CellSize = UDim2.new(0, 285, 0, 15)
+		
+		local function LCKQSH_fake_script() -- TabButton.TabButtonScript 
+			local script = Instance.new('LocalScript', TabButton)
+
+			script.Parent.MouseEnter:Connect(function()
+				script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+			end)
+			script.Parent.MouseLeave:Connect(function()
+				script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+			end)
+			script.Parent.MouseButton1Down:Connect(function()
+				script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			end)
+			script.Parent.MouseButton1Up:Connect(function()
+				script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+			end)
+			script.Parent.MouseButton1Click:Connect(function()
+				for _, cont in pairs(script.Parent.Parent.Parent.Parent.Category:GetChildren()) do
+					if cont:IsA("Frame") then
+						cont.Visible = false
+					end
+				end
+				wait(0.1)
+				script.Parent.Parent.Parent.Parent.Category[script.Parent.Text].Visible = true
+			end)
+		end
+		coroutine.wrap(LCKQSH_fake_script)()
+		
+		local Tab = {}
+		
+		
+		
+		
+		
+		function Tab:CreateSeciton(sectionname)
+			local Section = Instance.new("Frame")
+			local InSection = Instance.new("Frame")
+			local SectionUIGridLayout = Instance.new("UIGridLayout")
+			local SectionTitle = Instance.new("TextLabel")
+			
+			Section.Name = "Section"
+			Section.Parent = Page
+			Section.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+			Section.BorderSizePixel = 0
+			Section.Position = UDim2.new(0, 0, 0.00232558139, 0)
+			Section.Size = UDim2.new(0, 285, 0, 14)
+
+			InSection.Name = "InSection"
+			InSection.Parent = Section
+			InSection.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+			InSection.BackgroundTransparency = 1.000
+			InSection.BorderSizePixel = 0
+			InSection.Position = UDim2.new(0, 0, 1, 0)
+			InSection.Size = UDim2.new(0, 285, 0, 1)
+
+			SectionUIGridLayout.Name = "SectionUIGridLayout"
+			SectionUIGridLayout.Parent = InSection
+			SectionUIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			SectionUIGridLayout.CellSize = UDim2.new(0, 285, 0, 20)
+			
+			SectionTitle.Name = "SectionTitle"
+			SectionTitle.Parent = Section
+			SectionTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			SectionTitle.BackgroundTransparency = 1.000
+			SectionTitle.BorderSizePixel = 0
+			SectionTitle.Size = UDim2.new(0, 285, 0, 15)
+			SectionTitle.Font = Enum.Font.GothamSemibold
+			SectionTitle.Text = sectionname or "Section"
+			SectionTitle.TextColor3 = Color3.fromRGB(220, 220, 220)
+			SectionTitle.TextSize = 12.000
+			
+			local Element = {}
+			
+			
+			
+			
+			
+			function Element:CreateButton(buttonname, buttoncallback)
+				
+				local ButtonFrame = Instance.new("Frame")
+				local Button = Instance.new("TextButton")
+				
+				ButtonFrame.Name = "ButtonFrame"
+				ButtonFrame.Parent = InSection
+				ButtonFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+				ButtonFrame.BorderSizePixel = 0
+				ButtonFrame.Size = UDim2.new(0, 100, 0, 100)
+
+				Button.Name = "Button"
+				Button.Parent = ButtonFrame
+				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Button.BackgroundTransparency = 1.000
+				Button.BorderSizePixel = 0
+				Button.Size = UDim2.new(0, 285, 0, 20)
+				Button.Font = Enum.Font.GothamSemibold
+				Button.TextColor3 = Color3.fromRGB(220, 220, 220)
+				Button.TextSize = 12.000
+				Button.Text = buttonname or "Button"
+				Button.MouseButton1Click:Connect(function()
+					pcall(buttoncallback)
+				end)
+				
+				local function ZEHM_fake_script() -- Button.ButtonScript 
+					local script = Instance.new('LocalScript', Button)
+
+					script.Parent.MouseEnter:Connect(function()
+						script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+					end)
+					script.Parent.MouseLeave:Connect(function()
+						script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+					end)
+					script.Parent.MouseButton1Down:Connect(function()
+						script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+					end)
+					script.Parent.MouseButton1Up:Connect(function()
+						script.Parent.Parent.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+					end)
+				end
+				coroutine.wrap(ZEHM_fake_script)()
+				
+			end
+			
+			function Element:CreateToggle(toggletitle, togglecallback)
+				
+				local ToggleFrame = Instance.new("Frame")
+				local ToggleTitle = Instance.new("TextLabel")
+				local ToggleBackground = Instance.new("Frame")
+				local ToggleButton = Instance.new("TextButton")
+				local ToggleUICorner = Instance.new("UICorner")
+				local ToggleFrameUiCorner = Instance.new("UICorner")
+				
+				ToggleFrame.Name = "ToggleFrame"
+				ToggleFrame.Parent = InSection
+				ToggleFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+				ToggleFrame.BorderSizePixel = 0
+				ToggleFrame.Size = UDim2.new(0, 100, 0, 100)
+
+				ToggleTitle.Name = "ToggleTitle"
+				ToggleTitle.Parent = ToggleFrame
+				ToggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				ToggleTitle.BackgroundTransparency = 1.000
+				ToggleTitle.BorderSizePixel = 0
+				ToggleTitle.Size = UDim2.new(0, 285, 0, 20)
+				ToggleTitle.Font = Enum.Font.GothamSemibold
+				ToggleTitle.Text = toggletitle or "Auto Farm All Boss (INSANE !!!)"
+				ToggleTitle.TextColor3 = Color3.fromRGB(220, 220, 220)
+				ToggleTitle.TextSize = 12.000
+				ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+				ToggleBackground.Name = "ToggleBackground"
+				ToggleBackground.Parent = ToggleTitle
+				ToggleBackground.BackgroundColor3 = Color3.fromRGB(20, 95, 186)
+				ToggleBackground.BorderSizePixel = 0
+				ToggleBackground.Position = UDim2.new(0.929824591, 0, 0, 0)
+				ToggleBackground.Size = UDim2.new(0, 20, 0, 20)
+
+				ToggleButton.Name = "ToggleButton"
+				ToggleButton.Parent = ToggleBackground
+				ToggleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+				ToggleButton.Position = UDim2.new(0, 2, 0, 2)
+				ToggleButton.Size = UDim2.new(0, 16, 0, 16)
+				ToggleButton.Font = Enum.Font.SourceSans
+				ToggleButton.Text = ""
+				ToggleButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+				ToggleButton.TextSize = 14.000
+
+				ToggleUICorner.CornerRadius = UDim.new(0, 2)
+				ToggleUICorner.Name = "ToggleUICorner"
+				ToggleUICorner.Parent = ToggleButton
+
+				ToggleFrameUiCorner.CornerRadius = UDim.new(0, 2)
+				ToggleFrameUiCorner.Name = "ToggleFrameUiCorner"
+				ToggleFrameUiCorner.Parent = ToggleBackground
+				
+				local function TWHO_fake_script() -- ToggleButton.ToggleScript 
+					local script = Instance.new('LocalScript', ToggleButton)
+
+					local toggled = false
+					
+					script.Parent.MouseButton1Click:Connect(function()
+						if toggled == false then
+							script.Parent.BackgroundColor3 = Color3.fromRGB(20, 95, 186)
+							toggled = true
+							pcall(togglecallback, toggled)
+						elseif toggled == true then
+							script.Parent.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+							toggled = false
+							pcall(togglecallback, toggled)
+						end
+					end)
+				end
+				coroutine.wrap(TWHO_fake_script)()
+				
+				function Element:CreateLabel(labeltitle)
+					local LabelFrame = Instance.new("Frame")
+					local LabelTitle = Instance.new("TextLabel")
+					
+					LabelFrame.Name = "LabelFrame"
+					LabelFrame.Parent = InSection
+					LabelFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+					LabelFrame.BorderSizePixel = 0
+					LabelFrame.Size = UDim2.new(0, 100, 0, 100)
+
+					LabelTitle.Name = "LabelTitle"
+					LabelTitle.Parent = LabelFrame
+					LabelTitle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+					LabelTitle.BorderSizePixel = 0
+					LabelTitle.Size = UDim2.new(0, 285, 0, 20)
+					LabelTitle.Font = Enum.Font.GothamSemibold
+					LabelTitle.Text = labeltitle or "This Is Label , Probaly Useless ;-;"
+					LabelTitle.TextColor3 = Color3.fromRGB(220, 220, 220)
+					LabelTitle.TextSize = 12.000
+				end
+				
+				function Element:CreateDropdown(dropdowntitle, dropdowncallback)
+					local DropdownFrame = Instance.new("Frame")
+					local DropdownTitle = Instance.new("TextLabel")
+					local Dropdownbackground = Instance.new("Frame")
+					local dorpdownbutton = Instance.new("TextButton")
+					local dorpdownbuttonuicorner = Instance.new("UICorner")
+					local dorpdownbackgroundUICorner = Instance.new("UICorner")
+					local dropdownsection = Instance.new("Frame")
+					local dropdownuigridlayout = Instance.new("UIGridLayout")
+					
+
+					--Properties:
+
+					DropdownFrame.Name = "DropdownFrame"
+					DropdownFrame.Parent = InSection
+					DropdownFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+					DropdownFrame.BorderSizePixel = 0
+					DropdownFrame.Size = UDim2.new(0, 100, 0, 100)
+
+					DropdownTitle.Name = "DropdownTitle"
+					DropdownTitle.Parent = DropdownFrame
+					DropdownTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					DropdownTitle.BackgroundTransparency = 1.000
+					DropdownTitle.BorderSizePixel = 0
+					DropdownTitle.Size = UDim2.new(0, 285, 0, 20)
+					DropdownTitle.Font = Enum.Font.GothamSemibold
+					DropdownTitle.Text = dropdowntitle.." : "
+					DropdownTitle.TextColor3 = Color3.fromRGB(220, 220, 220)
+					DropdownTitle.TextSize = 12.000
+					DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+					Dropdownbackground.Name = "Dropdownbackground"
+					Dropdownbackground.Parent = DropdownTitle
+					Dropdownbackground.BackgroundColor3 = Color3.fromRGB(20, 95, 186)
+					Dropdownbackground.BorderSizePixel = 0
+					Dropdownbackground.Position = UDim2.new(0.649122834, 0, 0, 0)
+					Dropdownbackground.Size = UDim2.new(0, 100, 0, 20)
+
+					dorpdownbutton.Name = "dorpdownbutton"
+					dorpdownbutton.Parent = Dropdownbackground
+					dorpdownbutton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+					dorpdownbutton.BackgroundTransparency = 1.000
+					dorpdownbutton.Size = UDim2.new(0, 100, 0, 20)
+					dorpdownbutton.Font = Enum.Font.GothamSemibold
+					dorpdownbutton.Text = ""
+					dorpdownbutton.TextColor3 = Color3.fromRGB(220, 220, 220)
+					dorpdownbutton.TextSize = 12.000
+
+					dorpdownbuttonuicorner.CornerRadius = UDim.new(0, 2)
+					dorpdownbuttonuicorner.Name = "dorpdownbuttonuicorner"
+					dorpdownbuttonuicorner.Parent = dorpdownbutton
+
+					dorpdownbackgroundUICorner.CornerRadius = UDim.new(0, 2)
+					dorpdownbackgroundUICorner.Name = "dorpdownbackgroundUICorner"
+					dorpdownbackgroundUICorner.Parent = Dropdownbackground
+
+					dropdownsection.Name = "dropdownsection"
+					dropdownsection.Parent = Dropdownbackground
+					dropdownsection.BackgroundColor3 = Color3.fromRGB(20, 95, 186)
+					dropdownsection.BorderSizePixel = 0
+					dropdownsection.Position = UDim2.new(1, 0, 0, 0)
+					dropdownsection.Size = UDim2.new(0, 100, 0, 25)
+					dropdownsection.Visible = false
+					dropdownsection.ZIndex = 10
+
+					dropdownuigridlayout.Name = "dropdownuigridlayout"
+					dropdownuigridlayout.Parent = dropdownsection
+					dropdownuigridlayout.SortOrder = Enum.SortOrder.LayoutOrder
+					dropdownuigridlayout.CellSize = UDim2.new(0, 100, 0, 20)
+
+
+
+					-- Scripts:
+
+					local function QGSQRI_fake_script() -- dorpdownbutton.dorpdownbuttonscript 
+						local script = Instance.new('LocalScript', dorpdownbutton)
+
+						script.Parent.MouseButton1Click:Connect(function()
+							script.Parent.Parent.dropdownsection.Visible = true
+						end)
+					end
+
+					
+					local Dropdown = {}
+					
+					
+					
+					
+					
+					function Dropdown:AddItem(itemname)
+						local dropdowninsideitem = Instance.new("TextButton")
+						
+						dropdowninsideitem.Name = "dropdowninsideitem"
+						dropdowninsideitem.Parent = dropdownsection
+						dropdowninsideitem.BackgroundColor3 = Color3.fromRGB(15, 77, 148)
+						dropdowninsideitem.BackgroundTransparency = 1.000
+						dropdowninsideitem.BorderSizePixel = 0
+						dropdowninsideitem.Size = UDim2.new(0, 200, 0, 50)
+						dropdowninsideitem.Font = Enum.Font.GothamSemibold
+						dropdowninsideitem.Text = "item 1"
+						dropdowninsideitem.TextColor3 = Color3.fromRGB(220, 220, 220)
+						dropdowninsideitem.TextSize = 12.000
+						
+						coroutine.wrap(QGSQRI_fake_script)()
+						local function GETWMQ_fake_script() -- dropdowninsideitem.dropdowninsidesitmescirpt 
+							local script = Instance.new('LocalScript', dropdowninsideitem)
+
+							script.Parent.MouseButton1Click:Connect(function()
+								script.Parent.Parent.Visible = false
+								script.Parent.Parent.Parent.Parent.Parent.DropdownTitle.Text = script.Parent.Text
+								pcall(dropdowncallback, script.Parent.Text)
+							end)
+						end
+						coroutine.wrap(GETWMQ_fake_script)()
+						
+						dropdownsection.Size = UDim2.new(0, 100, 0, dropdownsection.Size.Y.Offset + 20)
+						
+					end
+					
+					return Dropdown
+					
+				end
+				
+			end
+			
+			return Element
+		end
+		
+		return Tab
+	end
+	
+	return Window
+end
+
+return Library
